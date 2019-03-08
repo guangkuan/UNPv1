@@ -1,0 +1,19 @@
+Chapter1
+守护程序(daemon)
+IP(Internet Protocol,网际协议)
+TCP(Transmission Control Protocol,传输控制协议)
+UDP(User Datagram Protocol,用户数据报协议)
+SMTP(Simple Mail Transfer Protocol,简单邮件传送协议)
+LAN(local area network,局域网)
+WAN(wide area network,广域网)
+HTTP(Hypertext Transfer Protocol,超文本传送协议)
+RPC(Remote Procedure call,Sun远程过程调用)
+DNS(Domain Name System,域名系统)
+
+
+Chapter3
+host byte order 主机字节序
+network byte order 网络字节序（大端字节序）
+字节操纵函数：记住memcpy两个指针参数顺序的方法之一是记着它们是按照与C中的赋值语句相同的顺序从左到右书写的：dest = src
+记住memset最后连个参数顺序的方法之一是认识到所有ANSI C的memXXX函数都需要一个长度参数，而且它总是最后一个参数
+inet_pton和inet_ntop函数函数名中p和n分别代表表达（presentation）和数值（numeric）。地址的表达格式通常是ASCII字符串，数值格式则是存放到套接字地址结构地址结构中的二进制值。
