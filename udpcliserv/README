@@ -1,0 +1,12 @@
+ssize_t recvfrom(int sockfd, void *buff, size_t nbytes, int flags, struct sockaddr *from, socklen_t *addrlen);
+ssize_t sendto(int sockfd, void *buff, size_t nbytes, int flags, const struct sockaddr *to, socklen_t addrlen);
+前三个参数sockfd、buff和nbytes等同于read和write函数的三个参数：描述符、指向读入或写出缓冲区的指针和读写字节数。
+sendto的to参数指向一个含有数据报接受者的协议地址（如IP地址及端口号）的套接字地址结构，其大小由addrlen参数决定。
+recvfrom的from参数指向一个指向一个将由该函数在返回时填写数据报发送者的协议地址的套接字地址结构，而在该套接字地址结构中填写的字节数则放在addrlen参数所指的整数中返回给调用者。
+recvfrom的最后两个参数类似accept的最后两个参数，sendto的最后两个参数类似于connect的最后两个参数。
+这两个函数都把所读写数据的长度作为函数返回值。
+
+对于UDP套接字，由它引发的异步错误却并不返回给它，除非它已连接。
+
+对于UDP套接字，目的IP地址只能通过IPv4设置IP_RECVDSTADDR套接字选项（或为IPv6设置IPV6_PKTINFO套接字选项）然后调用recvmsg（而不是recvfrom）取得。
+由于UDP时无连接的，因此目的IP地址可随发送到服务器的每个数据报而改变。
