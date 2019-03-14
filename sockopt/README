@@ -1,0 +1,34 @@
+/*其中sockfd必须指向一个打开的套接字描述符
+/level（级别）指定系统中解释选项的代码或为通用套接字代码，或为某个特定于协议的代码（例如IPv4、IPv6、TCP或SCTP）
+/optval是一个指向某个变量（*optval）的指针
+setsockopt从*optval中取得选项待设置的新值，getsockopt则把以获取的选项当前值存放到*optval中。
+*optval的大小由最后一个参数指定，它对于setsockopt是一个值参数，对于getsockopt时一个值-结果参数。*/
+int getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen);
+int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t *optlen);
+(均返回，若成功返回0，若出错则为-1)
+
+
+
+通用套接字选项
+这些选项时协议无关的（也就是说，它们由内核中的协议无关代码处理，而不是由诸如IPv4之类特殊的协议模块处理）
+不过其中有些选项只能应用到某些特定类型的套接字中
+SO_KEEPALIVE
+本选项的功能时检测对端主机是否崩溃或变得不可达（譬如拨号调制解调器连接掉线，电源发生故障，等等）
+SO_LINGER
+本选项指定close函数对面向连接的协议（例如TCP和SCTP，但不是UDP）如何操作。
+SO_RCVBUF和SO_SNDBUF
+这两个套接字选项允许我们改变这两个缓冲区的默认大小。
+SO_RCVLOWAT和SO_SNDLOWAT
+这两个套接字选项允许我们修改低水位标记。
+接收低水位标记时让select返回“可读”时套接字接收缓冲区中所需的数据量。
+发送低水位标记是让select返回“可写”时套接字发送缓冲区中所需的可用空间。
+SO_REUSEADDR和SO_REUSEPORT
+（1）SO_REUSEADDR允许启动一个监听服务器并捆绑其众所周知端口，即使以前建立的将该端口用作它们的本地端口的连接仍存在。
+（2）SO_REUSEADDR允许在同一端口上启动同一服务器的多个实例，只要每个实例捆绑一个不同的本地IP地址即可。
+（3）SO_REUSEADDR允许单个进程捆绑同一端口到多个套接字，只要每次捆绑指定不同的本地IP地址即可。
+（4）SO_RESUEADDR允许完全重复的捆绑：当一个IP地址和端口已绑定到摸个套接字上时，如果传输协议支持，同样的IP地址和端口还可以捆绑到另一个套接字上。
+
+IPv4套接字选项
+这些套接字选项由IPv4处理，它们的级别（即getsockopt和setsockopt函数的第二个参数）为IPPROTO_IP
+IP_RECVDSTADDR
+本套接字选项导致所收到UDP数据报的目的IP地址由recvmsg函数作为辅助函数返回。
